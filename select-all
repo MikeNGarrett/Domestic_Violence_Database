@@ -1,0 +1,54 @@
+create procedure sp_search
+
+declare @state varchar(45)
+declare @category varchar(255)
+
+select org.name "Organization Name", org.street "Street", org.neighborhood "Neighborhood",
+org.city "City", org.state_province "State/Province", org.zip_postalcode "Zip/Postal Code",
+org.county "County", org.nation "Nation", org.cross_streets "Cross Streets", org.latitude "Latitude",
+org.longitude "Longitude", org.phone "Phone", org.email "Email", org.website "Website",
+org.confidential "Confidential", org.contact_name "Contact_Name", org.active "Active",
+sc.servicecost_desc "Service Costs", st.servicetype_desc "Service Type", sp.specialization_desc "Specialization",
+up.updates_desc "Recently Updated"
+from organizations as org
+
+join org_servicecost as osc on ((org.name like osc.fk_organization_name) and (org.city like osc.fk_organization_city) and (org.state_province like osc.fk_organization_state) and (org.fk_service_cost = osc.fk_servicecost_id))
+join servicecost as sc on (osc.fk_servicecost_id = sc.servicecost_id)
+
+join org_servicetype as ost on ((org.name like ost.fk_organization_name) and (org.city like ost.fk_organization_city) and (org.state_province like ost.fk_organization_state) and (org.fk_service_type = ost.fk_servicetype_id))
+join servicetype as st on (ost.fk_servicetype_id = st.servicetype_id)
+
+join org_specialization as osp on ((org.name like osp.fk_organization_name) and (org.city like osp.fk_organization_city) and (org.state_province like osp.fk_organization_state) and (org.fk_specialization = osp.fk_specialization_id))
+join specialization as sp on (osp.fk_specialization_id = sp.specialization_id)
+
+join org_updates as oup on ((org.name like oup.fk_organization_name) and (org.city like oup.fk_organization_city) and (org.state_province like oup.fk_organization_state) and (org.fk_updated_on = oup.fk_updates_id))
+join updates as up on (oup.fk_updates_id = up.updates.id)
+
+where (org.state_province like @state and st.servicetype_desc like @category)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
