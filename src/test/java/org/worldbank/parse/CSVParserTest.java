@@ -1,4 +1,4 @@
-package org.worldbank;
+package org.worldbank.parse;
 
 import java.io.FileInputStream;
 
@@ -35,9 +35,9 @@ public class CSVParserTest
 	@Test
 	public void test() throws Exception
 	{
-		String[] categories = new String[]{"Category","Organization","Phone","Website","Services/Description"};
-		CSVParser parser = new CSVParser(new FileInputStream("src/main/resources/dataset_DCADV.csv"),"~",categories);
-		
+		String[] categories = new String[]{ "Category", "Organization", "Phone", "Website", "Services/Description" };
+		CSVParser parser = new CSVParser(new FileInputStream("src/main/resources/dataset_DCADV.csv"), "~", categories);
+
 	}
 
 }

@@ -8,8 +8,7 @@ public class ConnectorTest {
 	@Test
 	public void test() throws Exception
 	{
-		Connector connector = new Connector();
-		connector.connectToAndQueryDatabase("root", "Cyclone5");
-		
+		Connector connector = new Connector("root","cia008","localhost","3306");
+		connector.connect();
 	}
 }
