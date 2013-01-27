@@ -9,4 +9,5 @@ public abstract class CRUDOps
 	public abstract boolean create(String sql) throws ClassNotFoundException, SQLException;
 	public abstract ResultSet read(String query) throws ClassNotFoundException, SQLException;
 	public abstract int update(String updateSQL) throws ClassNotFoundException, SQLException;
+	public abstract boolean delete(String deleteSQL) throws ClassNotFoundException, SQLException;
 }

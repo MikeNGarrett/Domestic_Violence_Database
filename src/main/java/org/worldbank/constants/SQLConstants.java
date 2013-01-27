@@ -34,4 +34,5 @@ public class SQLConstants
 		return "phpmyadmin";
 	}
 
+
 }

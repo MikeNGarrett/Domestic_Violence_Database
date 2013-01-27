@@ -6,8 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.worldbank.constants.SQLConstants;
+
 public class Connector
 {
+	private static Logger log = LoggerFactory.getLogger(Connector.class);
 	private Connection con;
 	private String username;
 	private String password;
@@ -24,8 +29,9 @@ public class Connector
 
 	public void connect() throws ClassNotFoundException, SQLException
 	{
+		log.info("Connecting to SQL. username:"+username+" host:"+host+" port:"+port);
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://" + host + ":" + port + "/mysql";
+		String url = "jdbc:mysql://" + host + ":" + port + "/"+SQLConstants.getDatabaseName();
 		this.con = DriverManager.getConnection(url, username, password);
 	}
 
@@ -61,12 +67,3 @@ public class Connector
 	}
 
 }
-
-/*
- * public Connection getConnection() throws SQLException { Connection conn = null; Properties connectionProps = new
- * Properties(); connectionProps.put("user", this.username); connectionProps.put("password", this.password); if
- * (this.dbms.equals("mysql")) { conn = DriverManager.getConnection( "jdbc:" + this.dbms + "://" + this.serverName + ":"
- * + this.portNumber + "/", connectionProps); } System.out.println("Connected to database"); return conn; } public
- * static void main (String [] args) { try { Class.forName(��); //Or any other driver } catch(Exception x) {
- * System.out.println( �Unable to load the driver class!� ); } } }
- */
