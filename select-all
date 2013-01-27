@@ -1,5 +1,4 @@
 create procedure sp_search (state varchar(45), category varchar(255))
-
 # there is currently no sql injection protection -- yet
 
 begin
@@ -33,18 +32,20 @@ end
 
 # call sp_search(@state, @category)
 
-
-
-# max description size currently 845
-
-
-create sp_insert (cat varchar(45), org varchar(45), phone varchar(45), website varchar(45), description varchar(1024))
+# Use sp_insert to import data into tables: organizations, org_servicetype
+create sp_insert (cat varchar(45), org varchar(45), city varchar(45), state varchar(45), phone varchar(45), website varchar(45), description varchar(1024))
 
 begin
-insert into organizations (name, phone, website, description) (@org, @phone, @website, @description)
+
+declare @cat_id int
+
+insert into organizations (name, city, state_province, phone, website, description) values (@org, @city, @state, @phone, @website, @description)
+set @cat_id = select servicetype.servicetype_id where (servicetype.servicetype_desc like @cat)
+insert into org_servicetype (fk_organization_name, fk_organization_city, fk_organization_state, fk_servicetype_id) values (@org, @city, @state, @cat_id) 
 
 end
 #organizations
 
+create sp_createuser 
 
 # crud users
