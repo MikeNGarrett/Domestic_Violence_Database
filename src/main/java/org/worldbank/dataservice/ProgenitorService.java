@@ -18,8 +18,7 @@ public class ProgenitorService
 		switch(type)
 		{
 			case CREATE:
-				return new CreateOps(UserType.PROGENITOR);
-				break;
+				return new CreateOps(user.getAuthorityLevel());
 			case READ:
 				break;
 			case UPDATE:
@@ -27,5 +26,6 @@ public class ProgenitorService
 			case DELETE:
 				break;
 		}
+		return null;
 	}
 }
