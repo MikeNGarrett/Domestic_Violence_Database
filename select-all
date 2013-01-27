@@ -9,6 +9,7 @@
 # Organization CRUD Stored Procedures
 # sp_create_org, sp_read_org, sp_update_org, sp_delete_org
 
+# need to add all of the fields into this create; we can then pass empty parameters if needed
 create procedure sp_create_org (cat varchar(45), org varchar(45), city varchar(45), state varchar(45), phone varchar(45), website varchar(45), description varchar(1024))
 begin
 declare @cat_id int
@@ -44,7 +45,10 @@ where (org.state_province like @state and st.servicetype_desc like @category)
 
 end
 
-create procedure sp_update_org ()#holy fuck this is going to be a long query
+create procedure sp_update_org (org varchar(128), city varchar(45), state varchar(45), street varchar(45), neighborhood varchar(45), county varchar(45))
+begin
+
+end
 
 create procedure sp_delete_org (org varchar(128), city varchar(45), state varchar(45))
 begin
@@ -67,17 +71,20 @@ create procedure sp_create_user (username varchar(45), password varchar(45), rol
 begin
 insert into users (username, password, role, domain) values (@username, @password, @role, @domain)
 end
+
 create procedure sp_read_user (username varchar(45), role int, domain varchar(45))
 begin
 select username, role_description, domain from users 
 join roles on users.role = roles.role_id
 where ((username like @username) or (role = @role_id) or (domain like @domain))
 end
+
 create procedure sp_update_user (username varchar(45), password varchar(45), role int, domain varchar(45))
 begin
 update users set password = @password, role = @role, domain = @domain
 where username like @username
 end
+
 create procedure sp_delete_user (username varchar(45))
 begin
 delete from users
