@@ -1,0 +1,13 @@
+,CREATE,READ,UPDATE,DELETE
+PROGENITOR,✓,✓,✓,✓
+DEVELOPER,✓,✓,✓,DOMAIN
+NATIONAL,DOMAIN,✓,DOMAIN,DOMAIN
+REGIONAL,DOMAIN,✓,DOMAIN,DOMAIN
+PROVIDER,DOMAIN,✓,DOMAIN,DOMAIN
+VIEWER,X,✓,X,X
+,,,,
+DEFINITIONS,,,,
+DOMAIN,NATIONAL,"All Provider entries for their country, or their area. For instance, a NGO that focuses on Domestic Violence in the Muslim community nationally. Would have access to CREATE,READ,UPDATE and DELETE all national Provider entries for the Muslim community.",,
+,REGIONAL,The above is true. Except Regional users can CRUD entries for their region (state/province) or in their area.,,
+,PROVIDER,Has access only to its entry,,
+,DEVELOPER,"Has the same access as PROGENITOR, except cannot delete the base structure",,
