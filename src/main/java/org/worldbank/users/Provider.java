@@ -2,13 +2,11 @@ package org.worldbank.users;
 
 public class Provider extends User
 {
-	public Provider()
+
+	public Provider(String userName, String password)
 	{
-		this.basic = true;
+		super(userName, password, UserType.PROVIDER);
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public UserType getAuthorityLevel() {
-		return UserType.PROVIDER;
-	}
 }

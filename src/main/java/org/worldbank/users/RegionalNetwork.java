@@ -2,13 +2,10 @@ package org.worldbank.users;
 
 public class RegionalNetwork extends User
 {
-	public RegionalNetwork()
+
+	public RegionalNetwork(String userName, String password)
 	{
-		this.moderate = true;
+		super(userName, password, UserType.REGIONAL_NETWORK);
 	}
 
-	@Override
-	public UserType getAuthorityLevel() {
-		return UserType.REGIONAL_NETWORK;
-	}
 }

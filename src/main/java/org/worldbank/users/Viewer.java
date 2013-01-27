@@ -2,13 +2,10 @@ package org.worldbank.users;
 
 public class Viewer extends User
 {
-	public Viewer()
+
+	public Viewer(String userName, String password)
 	{
-		this.none = true;
+		super(userName, password, UserType.VIEWER);
 	}
 
-	@Override
-	public UserType getAuthorityLevel() {
-		return UserType.VIEWER;
-	}
 }

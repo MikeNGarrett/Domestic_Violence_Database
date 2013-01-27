@@ -2,13 +2,10 @@ package org.worldbank.users;
 
 public class Developer extends User 
 {
-	public Developer()
+
+	public Developer(String userName, String password)
 	{
-		this.codemonkey = true;
+		super(userName, password, UserType.DEVELOPER);
 	}
 
-	@Override
-	public UserType getAuthorityLevel() {
-		return UserType.DEVELOPER;
-	}
 }

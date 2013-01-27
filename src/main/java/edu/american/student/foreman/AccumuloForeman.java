@@ -1,19 +1,10 @@
-/* 	This file is apart of Hadoop-prime
-
-    Hadoop-prime is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
-
-    Hadoop-prime is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Hadoop-prime.  If not, see <http://www.gnu.org/licenses/>.
-    
-    Copyright 2012 Cameron Cook 
+/*
+ * This file is apart of Hadoop-prime Hadoop-prime is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or any later version. Hadoop-prime is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details. You should have received a copy of the GNU General Public License along with
+ * Hadoop-prime. If not, see <http://www.gnu.org/licenses/>. Copyright 2012 Cameron Cook
  */
 package edu.american.student.foreman;
 
@@ -43,24 +34,31 @@ import org.apache.accumulo.core.data.Value;
 import org.apache.accumulo.core.security.Authorizations;
 import org.apache.accumulo.core.security.ColumnVisibility;
 import org.apache.hadoop.io.Text;
+import org.worldbank.constants.DVDConstants;
+import org.worldbank.users.User;
+import org.worldbank.users.UserType;
 
 import edu.american.student.conf.Constants;
 import edu.american.student.exception.RepositoryException;
+
 /**
  * A Foreman responsible for interacting with the Accumulo Database
+ * 
  * @author cam
  */
 public class AccumuloForeman
 {
 
-	private Connector conn;//A true connection to the database
+	private Connector conn;// A true connection to the database
 	private static final Logger log = Logger.getLogger(AccumuloForeman.class.getName());
 
-	public AccumuloForeman(){}
+	public AccumuloForeman()
+	{
+	}
 
 	/**
-	 * Allow the AccumuloForeman to connect to Accumulo
-	 * MUST BE CALLED BEFORE ANYTHING ELSE HAPPENS
+	 * Allow the AccumuloForeman to connect to Accumulo MUST BE CALLED BEFORE ANYTHING ELSE HAPPENS
+	 * 
 	 * @return
 	 * @throws RepositoryException
 	 */
@@ -88,8 +86,8 @@ public class AccumuloForeman
 	}
 
 	/**
-	 * Grabs the underlying connection to the database.
-	 * You probably don't need this
+	 * Grabs the underlying connection to the database. You probably don't need this
+	 * 
 	 * @return
 	 * @throws RepositoryException
 	 */
@@ -105,8 +103,8 @@ public class AccumuloForeman
 	}
 
 	/**
-	 * Grabs the connection to all the tables.
-	 * You probably won't need this
+	 * Grabs the connection to all the tables. You probably won't need this
+	 * 
 	 * @return
 	 * @throws RepositoryException
 	 */
@@ -123,6 +121,7 @@ public class AccumuloForeman
 
 	/**
 	 * Wipes and deletes all the tables except for !METADATA
+	 * 
 	 * @return
 	 * @throws RepositoryException
 	 */
@@ -144,6 +143,7 @@ public class AccumuloForeman
 
 	/**
 	 * Deletes an individual table
+	 * 
 	 * @param name
 	 * @return
 	 * @throws RepositoryException
@@ -178,8 +178,8 @@ public class AccumuloForeman
 	}
 
 	/**
-	 * Grabs the batch writer. 
-	 * Youll need this if you want to write massive amounts of data at once
+	 * Grabs the batch writer. Youll need this if you want to write massive amounts of data at once
+	 * 
 	 * @param tableName
 	 * @return
 	 * @throws RepositoryException
@@ -206,6 +206,7 @@ public class AccumuloForeman
 
 	/**
 	 * A more primative add(). It requires a byte[] for its value
+	 * 
 	 * @param table
 	 * @param row
 	 * @param fam
@@ -236,6 +237,7 @@ public class AccumuloForeman
 
 	/**
 	 * Add an entry to Accumulo
+	 * 
 	 * @param table
 	 * @param row
 	 * @param fam
@@ -251,6 +253,7 @@ public class AccumuloForeman
 
 	/**
 	 * Creates a table
+	 * 
 	 * @param tableName
 	 * @throws RepositoryException
 	 */
@@ -286,6 +289,7 @@ public class AccumuloForeman
 
 	/**
 	 * Grab a List of entries by table, Row and Column Family
+	 * 
 	 * @param table
 	 * @param row
 	 * @param fam
@@ -320,6 +324,7 @@ public class AccumuloForeman
 
 	/**
 	 * Grab all entries by a common Column Family
+	 * 
 	 * @param table
 	 * @param fam
 	 * @return
@@ -352,6 +357,7 @@ public class AccumuloForeman
 
 	/**
 	 * Grabs all the entries by a common column family and column qualifier
+	 * 
 	 * @param table
 	 * @param fam
 	 * @param qual
@@ -384,6 +390,7 @@ public class AccumuloForeman
 
 	/**
 	 * Returns true if a table exists
+	 * 
 	 * @param name
 	 * @return
 	 * @throws RepositoryException
@@ -395,6 +402,7 @@ public class AccumuloForeman
 
 	/**
 	 * Fetch entries with a common table and family and a regex (starts with) qualifier
+	 * 
 	 * @param table
 	 * @param row
 	 * @param fam
@@ -435,6 +443,7 @@ public class AccumuloForeman
 
 	/**
 	 * Adds/Sets the authorizations for the default accumulo user
+	 * 
 	 * @param defaultAuths
 	 * @throws RepositoryException
 	 */
@@ -446,23 +455,74 @@ public class AccumuloForeman
 		}
 		catch (AccumuloException e)
 		{
-			String gripe ="Failed to set auths for root";
-			log.log(Level.SEVERE,gripe,e);
-			throw new RepositoryException(gripe,e);
+			String gripe = "Failed to set auths for root";
+			log.log(Level.SEVERE, gripe, e);
+			throw new RepositoryException(gripe, e);
 		}
 		catch (AccumuloSecurityException e)
 		{
-			String gripe ="Failed to set auths for root";
-			log.log(Level.SEVERE,gripe,e);
-			throw new RepositoryException(gripe,e);
+			String gripe = "Failed to set auths for root";
+			log.log(Level.SEVERE, gripe, e);
+			throw new RepositoryException(gripe, e);
 		}
-		
+
 	}
 
 	public boolean isConnected()
 	{
 		return this.conn != null;
-		
+
 	}
 
+	public User getUser(String userName, String password) throws RepositoryException
+	{
+		this.connect();
+		List<Entry<Key, Value>> entries = this.fetchByQualifier(DVDConstants.TABLE.USERS.toString(), "NAME", userName);
+		if (entries.size() == 0)
+		{
+			throw new RepositoryException("No user by " + userName + " found.");
+		}
+		else if (entries.size() > 1)
+		{
+			throw new RepositoryException("Mutliple entries of " + userName + " found.");
+		}
+		entries = this.fetchByQualifier(DVDConstants.TABLE.USERS.toString(), "PASSWORD", password);
+		if (entries.size() > 1 || entries.size() ==0)
+		{
+			throw new RepositoryException("Unable to authenicate user "+userName+".");
+		}
+		entries = this.fetchByRowColumnFamily(DVDConstants.TABLE.USERS.toString(), entries.get(0).getKey().getRow().toString(), "TYPE");
+		if (entries.size() > 1 || entries.size() ==0)
+		{
+			throw new RepositoryException("Unable to understand user type "+userName+".");
+		}
+		String type = entries.get(0).getKey().getColumnQualifier().toString();
+		UserType t = UserType.getType(type);
+		return User.newInstanceOf(userName, password, t);
+	}
+
+	public boolean userExists(User toCreate) throws RepositoryException
+	{
+		List<Entry<Key, Value>> entries = this.fetchByQualifier(DVDConstants.TABLE.USERS.toString(), "NAME", toCreate.getName());
+		
+		if (entries.size() == 0)
+		{
+			throw new RepositoryException("No user by " + toCreate.getName() + " found.");
+		}
+		else if (entries.size() > 1)
+		{
+			throw new RepositoryException("Mutliple entries of " +toCreate.getName()+ " found.");
+		}
+		entries = this.fetchByQualifier(DVDConstants.TABLE.USERS.toString(), "PASSWORD",toCreate.getPassword());
+		if (entries.size() > 1 || entries.size() ==0)
+		{
+			throw new RepositoryException("Unable to authenicate user "+toCreate.getName()+".");
+		}
+		entries = this.fetchByRowColumnFamily(DVDConstants.TABLE.USERS.toString(), entries.get(0).getKey().getRow().toString(), "TYPE");
+		if (entries.size() > 1 || entries.size() ==0)
+		{
+			throw new RepositoryException("Unable to understand user type "+toCreate.getName()+".");
+		}
+		return true;
+	}
 }
