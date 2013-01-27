@@ -1,4 +1,4 @@
-package org.worldbank.constants;
+package org.worldbank.users;
 
 public abstract class User 
 {

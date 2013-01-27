@@ -1,6 +1,4 @@
-package org.worldbank.parse;
-
-import java.io.FileInputStream;
+package org.worldbank.dataservice;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -8,7 +6,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CSVParserTest
+public class AdministratorServiceTest
 {
 
 	@BeforeClass
@@ -34,9 +32,8 @@ public class CSVParserTest
 	@Test
 	public void test() throws Exception
 	{
-		String[] categories = new String[]{ "Category", "Organization", "Phone", "Website", "Services/Description" };
-		CSVParser parser = new CSVParser(new FileInputStream("src/main/resources/dataset_DCADV.csv"), "~", categories);
-		parser.parseIntoDatabase();
+		AdministratorService admin = new AdministratorService();
+		admin.buildDatabase();
 	}
 
 }

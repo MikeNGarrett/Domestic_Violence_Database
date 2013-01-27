@@ -1,4 +1,4 @@
-package org.worldbank.constants;
+package org.worldbank.users;
 
 public class Progenitor extends User
 {

@@ -1,7 +1,11 @@
 package org.worldbank.parse;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import org.worldbank.constants.DBInput;
 
 public class CSVParser
 {
@@ -15,8 +19,9 @@ public class CSVParser
 		this.categories = categories;
 	}
 	
-	public void parseIntoDatabase()
+	public List<DBInput> parseIntoDatabase()
 	{
+		List<DBInput> toReturn = new ArrayList<DBInput>();
 		Scanner in = new Scanner(csvFile);
 		in.useDelimiter("\n");
 		while(in.hasNext())
@@ -24,13 +29,17 @@ public class CSVParser
 			String next = in.next();
 			String[] values = next.split(delimiter);
 			int index = 0;
+			DBInput input = new DBInput();
 			for(String category:categories)
 			{
+				input.addValue(category,values[index]);
 				System.out.println(category+": "+values[index]);
 				index++;
 			}
 			System.out.println();
+			toReturn.add(input);
 		}
+		return toReturn;
 	}
 	
 
