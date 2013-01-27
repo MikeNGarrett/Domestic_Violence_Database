@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `org_servicecost`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `org_servicecost` (
-  `fk_organization_name` varchar(45) NOT NULL,
+  `fk_organization_name` varchar(128) NOT NULL,
   `fk_organization_city` varchar(45) NOT NULL,
   `fk_organization_state` varchar(45) NOT NULL,
   `fk_servicecost_id` int(11) DEFAULT NULL,
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `org_servicetype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `org_servicetype` (
-  `fk_organization_name` varchar(45) NOT NULL,
+  `fk_organization_name` varchar(128) NOT NULL,
   `fk_organization_city` varchar(45) NOT NULL,
   `fk_organization_state` varchar(45) NOT NULL,
   `fk_servicetype_id` int(11) DEFAULT NULL,
@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `org_specialization`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `org_specialization` (
-  `fk_organization_name` varchar(45) NOT NULL,
+  `fk_organization_name` varchar(128) NOT NULL,
   `fk_organization_city` varchar(45) NOT NULL,
   `fk_organization_state` varchar(45) NOT NULL,
   `fk_specialization_id` int(11) DEFAULT NULL,
@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `org_updates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `org_updates` (
-  `fk_organization_name` varchar(45) NOT NULL,
+  `fk_organization_name` varchar(128) NOT NULL,
   `fk_organization_city` varchar(45) NOT NULL,
   `fk_organization_state` varchar(45) NOT NULL,
   `fk_updates_id` int(11) DEFAULT NULL,
@@ -131,7 +131,8 @@ DROP TABLE IF EXISTS `organizations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `organizations` (
-  `name` varchar(45) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `description` varchar(1024) DEFAULT NULL,
   `street` varchar(45) DEFAULT NULL,
   `neighborhood` varchar(45) DEFAULT NULL,
   `county` varchar(45) DEFAULT NULL,
@@ -142,7 +143,7 @@ CREATE TABLE `organizations` (
   `cross_streets` varchar(45) DEFAULT NULL,
   `latitute` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
+  `phone` varchar(128) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `website` varchar(45) DEFAULT NULL,
   `confidential` int(11) DEFAULT NULL,
@@ -435,6 +436,29 @@ LOCK TABLES `pma_userconfig` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL,
+  `role_description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `servicecost`
 --
 
@@ -533,6 +557,31 @@ LOCK TABLES `updates` WRITE;
 /*!40000 ALTER TABLE `updates` DISABLE KEYS */;
 /*!40000 ALTER TABLE `updates` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `username` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  `domain` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -543,4 +592,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-26 16:12:13
+-- Dump completed on 2013-01-26 19:37:39

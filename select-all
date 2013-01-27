@@ -1,7 +1,10 @@
-create procedure sp_search
+create procedure sp_search (state varchar(45), category varchar(255))
 
-declare @state varchar(45)
-declare @category varchar(255)
+# there is currently no sql injection protection -- yet
+
+begin
+#declare @state varchar(45)
+#declare @category varchar(255)
 
 select org.name "Organization Name", org.street "Street", org.neighborhood "Neighborhood",
 org.city "City", org.state_province "State/Province", org.zip_postalcode "Zip/Postal Code",
@@ -26,29 +29,22 @@ join updates as up on (oup.fk_updates_id = up.updates.id)
 
 where (org.state_province like @state and st.servicetype_desc like @category)
 
+end
+
+# call sp_search(@state, @category)
 
 
 
+# max description size currently 845
 
 
+create sp_insert (cat varchar(45), org varchar(45), phone varchar(45), website varchar(45), description varchar(1024))
+
+begin
+insert into organizations (name, phone, website, description) (@org, @phone, @website, @description)
+
+end
+#organizations
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# crud users
