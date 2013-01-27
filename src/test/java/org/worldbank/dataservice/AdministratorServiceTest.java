@@ -32,7 +32,7 @@ public class AdministratorServiceTest
 	@Test
 	public void test() throws Exception
 	{
-		AdministratorService admin = new AdministratorService();
+		ProgenitorService admin = new ProgenitorService();
 		admin.buildDatabase();
 	}
 

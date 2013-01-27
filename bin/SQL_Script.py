@@ -1,6 +1,8 @@
-import os
+#!/usr/bin/python
 
-def SQL_Script(user, host, database, file):
-    return (os.system("mysql -u "+str(user)+" -p -h "+str(host)+" "+str(database)+" < "+str(file)))
+import os
+import sys
+
+(os.system("mysql -u "+str(sys.argv[1])+" -p -h "+str(sys.argv[2])+" "+str(sys.argv[3])+"< "+str(sys.argv[4])))
     
         
