@@ -20,13 +20,13 @@ end
 
 create procedure sp_read_org (state varchar(45), category varchar(255))
 begin
-select org.name "Organization Name", org.street "Street", org.neighborhood "Neighborhood",
-org.city "City", org.state_province "State/Province", org.zip_postalcode "Zip/Postal Code",
-org.county "County", org.nation "Nation", org.cross_streets "Cross Streets", org.latitude "Latitude",
-org.longitude "Longitude", org.phone "Phone", org.email "Email", org.website "Website",
-org.confidential "Confidential", org.contact_name "Contact_Name", org.active "Active", org.description "Description",
-sc.servicecost_desc "Service Costs", st.servicetype_desc "Service Type", sp.specialization_desc "Specialization",
-up.updates_desc "Recently Updated"
+select org.name as "Organization Name", org.street as "Street", org.neighborhood as "Neighborhood",
+org.city as "City", org.state_province as "State/Province", org.zip_postalcode as "Zip/Postal Code",
+org.county as "County", org.nation as "Nation", org.cross_streets as "Cross Streets", org.latitude as "Latitude",
+org.longitude as "Longitude", org.phone as "Phone", org.email as "Email", org.website as "Website",
+org.confidential as "Confidential", org.contact_name as "Contact_Name", org.active as "Active", org.description as "Description",
+sc.servicecost_desc as "Service Costs", st.servicetype_desc as "Service Type", sp.specialization_desc as "Specialization",
+up.updates_desc as "Recently Updated"
 from organizations as org
 
 join org_servicecost as osc on ((org.name like osc.fk_organization_name) and (org.city like osc.fk_organization_city) and (org.state_province like osc.fk_organization_state) and (org.fk_service_cost = osc.fk_servicecost_id))
@@ -41,7 +41,7 @@ join specialization as sp on (osp.fk_specialization_id = sp.specialization_id)
 join org_updates as oup on ((org.name like oup.fk_organization_name) and (org.city like oup.fk_organization_city) and (org.state_province like oup.fk_organization_state) and (org.fk_updated_on = oup.fk_updates_id))
 join updates as up on (oup.fk_updates_id = up.updates.id)
 
-where (org.state_province like @state and st.servicetype_desc like @category)
+where (org.state_province like @state or (org.state_province like @state and st.servicetype_desc like @category))
 
 end
 
@@ -90,3 +90,6 @@ begin
 delete from users
 where username like @username
 end
+
+
+call sp_read_org "District of Columbia", ""
